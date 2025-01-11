@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct nectarApp: App {
+    @StateObject private var authViewModel = AuthViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView {
+                ContentView()
+                    .environmentObject(authViewModel)
+            }
         }
     }
 }

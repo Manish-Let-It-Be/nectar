@@ -1,0 +1,289 @@
+You are bulding a app "Nectar" : It is a grocery delivery iOS app using SwiftUI and Swift.
+
+# Project Structure
+.
+├── buildServer.json
+├── nectar
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   │   └── Contents.json
+│   │   ├── AppIcon.appiconset
+│   │   │   └── Contents.json
+│   │   ├── Contents.json
+│   │   ├── a_about.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_about.png
+│   │   ├── a_delivery_address.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_delivery_address.png
+│   │   ├── a_help.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_help.png
+│   │   ├── a_my_detail.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_my_detail.png
+│   │   ├── a_noitification.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_noitification.png
+│   │   ├── a_order.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_order.png
+│   │   ├── a_promocode.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── a_promocode.png
+│   │   ├── account_tab.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── account_tab.png
+│   │   ├── add (1).imageset
+│   │   │   ├── Contents.json
+│   │   │   └── add (1).png
+│   │   ├── add.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── add.png
+│   │   ├── add_green.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── add_green.png
+│   │   ├── app_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── app_logo.png
+│   │   ├── apple.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── apple.png
+│   │   ├── apple_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── apple_logo.png
+│   │   ├── apple_red.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── apple_red.png
+│   │   ├── back.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── back.png
+│   │   ├── bakery_snacks.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── bakery_snacks.png
+│   │   ├── banana.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── banana.png
+│   │   ├── banner_top.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── banner_top.png
+│   │   ├── beef_bone.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── beef_bone.png
+│   │   ├── bell_pepper_red.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── bell_pepper_red.png
+│   │   ├── beverages.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── beverages.png
+│   │   ├── bottom_bg.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── bottom_bg.png
+│   │   ├── broiler_chicken.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── broiler_chicken.png
+│   │   ├── cart_tab.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── cart_tab.png
+│   │   ├── checkbox.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── checkbox.png
+│   │   ├── checkbox_check.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── checkbox_check.png
+│   │   ├── close.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── close.png
+│   │   ├── cocacola_can.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── cocacola_can.png
+│   │   ├── color_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── color_logo.png
+│   │   ├── cooking_oil.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── cooking_oil.png
+│   │   ├── dairy_eggs.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── dairy_eggs.png
+│   │   ├── detail_open.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── detail_open.png
+│   │   ├── diet_coke.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── diet_coke.png
+│   │   ├── egg_chicken_red.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── egg_chicken_red.png
+│   │   ├── egg_chicken_white.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── egg_chicken_white.png
+│   │   ├── egg_noodies_new.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── egg_noodies_new.png
+│   │   ├── egg_noodles.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── egg_noodles.png
+│   │   ├── egg_pasta.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── egg_pasta.png
+│   │   ├── explore_tab.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── explore_tab.png
+│   │   ├── facebook.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── facebook.png
+│   │   ├── fav.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── fav.png
+│   │   ├── fav_tab.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── fav_tab.png
+│   │   ├── favorite.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── favorite.png
+│   │   ├── fb_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── fb_logo.png
+│   │   ├── filter_ic.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── filter_ic.png
+│   │   ├── frash_fruits.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── frash_fruits.png
+│   │   ├── ginger.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── ginger.png
+│   │   ├── google.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── google.png
+│   │   ├── google_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── google_logo.png
+│   │   ├── juice_apple_grape.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── juice_apple_grape.png
+│   │   ├── location.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── location.png
+│   │   ├── logout.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── logout.png
+│   │   ├── master.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── master.png
+│   │   ├── mayinnars_eggless.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── mayinnars_eggless.png
+│   │   ├── meat_fish.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── meat_fish.png
+│   │   ├── next.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── next.png
+│   │   ├── order_accpeted.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── order_accpeted.png
+│   │   ├── order_fail.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── order_fail.png
+│   │   ├── orenge_juice.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── orenge_juice.png
+│   │   ├── paymenth_methods.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── paymenth_methods.png
+│   │   ├── pepsi_can.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── pepsi_can.png
+│   │   ├── pulses.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── pulses.png
+│   │   ├── rice.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── rice.png
+│   │   ├── search.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── search.png
+│   │   ├── select_location.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── select_location.png
+│   │   ├── share.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── share.png
+│   │   ├── sign_in_top.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── sign_in_top.png
+│   │   ├── splash.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── splash.png
+│   │   ├── splash_logo.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── splash_logo.png
+│   │   ├── sprite_can.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── sprite_can.png
+│   │   ├── store_tab.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── store_tab.png
+│   │   ├── subtack.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── subtack.png
+│   │   ├── t_close.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── t_close.png
+│   │   ├── u1.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── u1.png
+│   │   ├── u2.imageset
+│   │   │   ├── Contents.json
+│   │   │   └── u2.png
+│   │   └── welcom_bg.imageset
+│   │       ├── Contents.json
+│   │       └── welcom_bg.png
+│   ├── Common
+│   ├── ContentView.swift
+│   ├── Font
+│   │   ├── Gilroy-Bold.ttf
+│   │   ├── Gilroy-Regular.ttf
+│   │   └── Gilroy-SemiBold.ttf
+│   ├── Info.plist
+│   ├── Launch Screen.storyboard
+│   ├── Preview Content
+│   │   └── Preview Assets.xcassets
+│   │       └── Contents.json
+│   ├── UICommon
+│   ├── View
+│   │   ├── HomeScreen.swift
+│   │   ├── Number.swift
+│   │   ├── SelectLocation.swift
+│   │   ├── Signin.swift
+│   │   ├── Verification.swift
+│   │   ├── Welcome.swift
+│   │   ├── logIn.swift
+│   │   └── signUp.swift
+│   ├── ViewModel
+│   ├── nectar.entitlements
+│   └── nectarApp.swift
+├── nectar.xcodeproj
+│   ├── project.pbxproj
+│   ├── project.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   ├── xcshareddata
+│   │   │   └── swiftpm
+│   │   │       └── configuration
+│   │   └── xcuserdata
+│   │       └── abhijeetrai.xcuserdatad
+│   │           └── UserInterfaceState.xcuserstate
+│   └── xcuserdata
+│       └── abhijeetrai.xcuserdatad
+│           └── xcschemes
+│               └── xcschememanagement.plist
+├── nectarTests
+│   └── nectarTests.swift
+└── nectarUITests
+    ├── nectarUITests.swift
+    └── nectarUITestsLaunchTests.swift
+
+
+
