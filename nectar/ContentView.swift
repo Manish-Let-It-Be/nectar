@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var authViewModel: AuthViewModel
+    @StateObject private var authViewModel = AuthViewModel()
     
     var body: some View {
-        Group {
+        NavigationView {
             if authViewModel.isAuthenticated {
                 MainTabView()
+                    .environmentObject(authViewModel)
             } else {
-                if authViewModel.isFirstLaunch {
-                    WelcomeView()
-                } else {
-                    SignInView()
-                }
+                SignInView()
+                    .environmentObject(authViewModel)
             }
         }
     }

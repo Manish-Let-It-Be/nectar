@@ -13,5 +13,16 @@
 		<string>Gilroy-SemiBold.ttf</string>
 		<string>Gilroy-Medium.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to provide accurate delivery services and show nearby stores.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to provide accurate delivery services and show nearby stores.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>We need your location to provide accurate delivery services and show nearby stores.</string>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>LocationAccuracy</key>
+		<string>We need your precise location to ensure accurate delivery to your address.</string>
+	</dict>
 </dict>
 </plist>

@@ -1,104 +1,270 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var searchText = ""
+    @StateObject private var viewModel: HomeViewModel
+    @ObservedObject var locationService: LocationService
+    @ObservedObject var productService: ProductService
+    @EnvironmentObject private var cartManager: CartManager
+    @EnvironmentObject private var favoritesManager: FavoritesManager
+    @State private var showLocationPicker = false
+    @State private var showingProductDetail: ProductModel?
+    
+    init(locationService: LocationService, productService: ProductService) {
+        self.locationService = locationService
+        self.productService = productService
+        _viewModel = StateObject(wrappedValue: HomeViewModel(productService: productService))
+    }
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                // Search Bar
-                HStack {
-                    Image("search")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                    TextField("Search Store", text: $searchText)
-                }
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .padding(.horizontal)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 20) {
+                // Location Header
+                LocationHeader(
+                    location: locationService.locationString,
+                    onLocationTap: { showLocationPicker = true }
+                )
                 
-                // Categories Section
-                VStack(alignment: .leading) {
-                    Text("Categories")
-                        .font(.custom("Gilroy-Bold", size: 20))
-                        .padding(.horizontal)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            CategoryCard(image: "frash_fruits", title: "Fresh Fruits")
-                            CategoryCard(image: "cooking_oil", title: "Cooking Oil")
-                            CategoryCard(image: "meat_fish", title: "Meat & Fish")
-                            CategoryCard(image: "bakery_snacks", title: "Bakery")
-                            CategoryCard(image: "dairy_eggs", title: "Dairy & Eggs")
-                            CategoryCard(image: "beverages", title: "Beverages")
-                        }
-                        .padding(.horizontal)
+                // Featured Products Carousel
+                if !viewModel.featuredProducts.isEmpty {
+                    FeaturedCarousel(products: viewModel.featuredProducts) { product in
+                        showingProductDetail = product
                     }
                 }
                 
                 // Exclusive Offers
-                VStack(alignment: .leading) {
-                    Text("Exclusive Offers")
-                        .font(.custom("Gilroy-Bold", size: 20))
-                        .padding(.horizontal)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ProductCard(image: "banana", title: "Organic Bananas", price: "$4.99")
-                            ProductCard(image: "apple", title: "Red Apple", price: "$3.99")
-                            ProductCard(image: "bell_pepper_red", title: "Bell Pepper Red", price: "$5.99")
-                        }
-                        .padding(.horizontal)
-                    }
+                ProductSection(
+                    title: "Exclusive Offers",
+                    products: viewModel.exclusiveOffers,
+                    onProductTap: { showingProductDetail = $0 },
+                    onFavoriteToggle: { favoritesManager.toggleFavorite($0) },
+                    onAddToCart: { cartManager.addToCart($0) }
+                )
+                
+                // Best Selling
+                ProductSection(
+                    title: "Best Selling",
+                    products: viewModel.bestSelling,
+                    onProductTap: { showingProductDetail = $0 },
+                    onFavoriteToggle: { favoritesManager.toggleFavorite($0) },
+                    onAddToCart: { cartManager.addToCart($0) }
+                )
+                
+                // Recommended
+                ProductSection(
+                    title: "Recommended",
+                    products: viewModel.recommendedProducts,
+                    onProductTap: { showingProductDetail = $0 },
+                    onFavoriteToggle: { favoritesManager.toggleFavorite($0) },
+                    onAddToCart: { cartManager.addToCart($0) }
+                )
+                
+                // Groceries
+                ProductSection(
+                    title: "Groceries",
+                    products: viewModel.groceries,
+                    onProductTap: { showingProductDetail = $0 },
+                    onFavoriteToggle: { favoritesManager.toggleFavorite($0) },
+                    onAddToCart: { cartManager.addToCart($0) }
+                )
+            }
+            .padding(.bottom)
+        }
+        .refreshable {
+            viewModel.refreshData()
+        }
+        .overlay(
+            Group {
+                if viewModel.isLoading {
+                    ProgressView()
+                        .scaleEffect(1.5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(Color.black.opacity(0.1))
                 }
             }
+        )
+        .sheet(isPresented: $showLocationPicker) {
+            LocationPickerView(selectedLocation: Binding(
+                get: { locationService.selectedLocation },
+                set: { locationService.selectedLocation = $0 }
+            ))
         }
-        .navigationTitle("Nectar")
+        .sheet(item: $showingProductDetail) { product in
+            ProductDetailView(product: product)
+                .environmentObject(cartManager)
+        }
     }
 }
 
-struct CategoryCard: View {
-    let image: String
-    let title: String
+struct LocationHeader: View {
+    let location: String
+    let onLocationTap: () -> Void
     
     var body: some View {
-        VStack {
-            Image(image)
-                .resizable()
-                .frame(width: 100, height: 100)
-                .cornerRadius(10)
-            Text(title)
-                .font(.custom("Gilroy-Medium", size: 14))
-                .multilineTextAlignment(.center)
+        Button(action: onLocationTap) {
+            HStack {
+                Image(systemName: "location.fill")
+                    .foregroundColor(.green)
+                Text(location)
+                    .font(.custom("Gilroy-SemiBold", size: 18))
+                Image(systemName: "chevron.down")
+                    .foregroundColor(.gray)
+            }
+            .padding()
         }
-        .frame(width: 120)
+    }
+}
+
+struct FeaturedCarousel: View {
+    let products: [ProductModel]
+    let onProductTap: (ProductModel) -> Void
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 15) {
+                ForEach(products) { product in
+                    FeaturedProductCard(product: product)
+                        .onTapGesture {
+                            onProductTap(product)
+                        }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
+struct FeaturedProductCard: View {
+    let product: ProductModel
+    
+    var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            Image(product.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 270, height: 150)
+                .clipped()
+                .cornerRadius(15)
+                .overlay(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.clear, .black.opacity(0.7)]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                    .cornerRadius(15)
+                )
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.name)
+                    .font(.custom("Gilroy-Bold", size: 18))
+                    .foregroundColor(.white)
+                
+                Text("$\(product.price, specifier: "%.2f")")
+                    .font(.custom("Gilroy-SemiBold", size: 16))
+                    .foregroundColor(.green)
+            }
+            .padding()
+        }
+    }
+}
+
+struct ProductSection: View {
+    let title: String
+    let products: [ProductModel]
+    let onProductTap: (ProductModel) -> Void
+    let onFavoriteToggle: (ProductModel) -> Void
+    let onAddToCart: (ProductModel) -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(title)
+                    .font(.custom("Gilroy-Bold", size: 20))
+                
+                Spacer()
+                
+                Button("See All") {
+                    // Navigate to category view
+                }
+                .font(.custom("Gilroy-SemiBold", size: 14))
+                .foregroundColor(.green)
+            }
+            .padding(.horizontal)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 15) {
+                    ForEach(products) { product in
+                        ProductCard(
+                            product: product,
+                            isFavorite: false, // TODO: Get from FavoritesManager
+                            onFavoriteToggle: { onFavoriteToggle(product) },
+                            onAddToCart: { onAddToCart(product) }
+                        )
+                        .onTapGesture {
+                            onProductTap(product)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+            }
+        }
     }
 }
 
 struct ProductCard: View {
-    let image: String
-    let title: String
-    let price: String
+    let product: ProductModel
+    let isFavorite: Bool
+    let onFavoriteToggle: () -> Void
+    let onAddToCart: () -> Void
     
     var body: some View {
-        VStack {
-            Image(image)
-                .resizable()
-                .frame(width: 150, height: 150)
-                .cornerRadius(10)
-            
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.custom("Gilroy-SemiBold", size: 16))
-                Text(price)
-                    .font(.custom("Gilroy-Medium", size: 14))
-                    .foregroundColor(.green)
+        VStack(alignment: .leading, spacing: 8) {
+            ZStack(alignment: .topTrailing) {
+                Image(product.image)
+                    .resizable()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(10)
+                
+                Button(action: {
+                    // Toggle favorite
+                }) {
+                    Image(isFavorite ? "favorite" : "fav")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                        .padding(8)
+                }
             }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(product.name)
+                    .font(.custom("Gilroy-SemiBold", size: 16))
+                Text("$\(product.price, specifier: "%.2f")")
+                    .font(.custom("Gilroy-Medium", size: 12))
+                    .foregroundColor(.gray)
+                
+                HStack {
+                    Text("$\(product.price, specifier: "%.2f")")
+                        .font(.custom("Gilroy-Bold", size: 16))
+                        .foregroundColor(.green)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        // Toggle favorite
+                    }) {
+                        Image(isFavorite ? "favorite" : "fav")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
+            .padding(.horizontal, 8)
         }
         .frame(width: 170)
-        .padding()
-        .background(Color(.systemGray6))
+        .background(Color(UIColor.systemGray6))
         .cornerRadius(15)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.gray.opacity(0.1), lineWidth: 1)
+        )
     }
 } 
