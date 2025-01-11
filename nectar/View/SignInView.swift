@@ -98,6 +98,11 @@ struct SignInView: View {
     }
     
     private func signIn() {
+        guard !email.isEmpty && !password.isEmpty else {
+            authViewModel.showError = true
+            authViewModel.errorMessage = "Please enter both email and password"
+            return
+        }
         authViewModel.signIn(email: email, password: password)
     }
 } 
