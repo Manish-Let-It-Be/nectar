@@ -45,6 +45,6 @@ struct WelcomeView: View {
                 .padding(.vertical, 50)
             }
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
     }
 } 

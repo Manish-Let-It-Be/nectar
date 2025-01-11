@@ -24,7 +24,7 @@ struct ExploreView: View {
                         TextField("Search Store", text: $searchText)
                     }
                     .padding()
-                    .background(Color(.systemGray6))
+                    .background(Color(UIColor.systemGray6))
                     .cornerRadius(10)
                     .padding(.horizontal)
                     
@@ -60,7 +60,7 @@ struct CategoryGridItem: View {
                 .multilineTextAlignment(.center)
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color(UIColor.systemGray6))
         .cornerRadius(15)
     }
 } 

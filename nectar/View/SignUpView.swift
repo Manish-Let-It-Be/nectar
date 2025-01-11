@@ -30,8 +30,8 @@ struct SignUpView: View {
                     
                     TextField("Email", text: $email)
                         .textFieldStyle(CustomTextFieldStyle())
+                        .textInputAutocapitalization(.never)
                         .keyboardType(.emailAddress)
-                        .autocapitalization(.none)
                     
                     HStack {
                         if showPassword {
