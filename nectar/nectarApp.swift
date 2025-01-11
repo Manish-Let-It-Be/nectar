@@ -13,10 +13,8 @@ struct nectarApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
-                    .environmentObject(authViewModel)
-            }
+            ContentView()
+                .environmentObject(authViewModel)
         }
     }
 }

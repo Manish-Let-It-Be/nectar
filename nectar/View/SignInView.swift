@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct SignInView: View {
-    @StateObject private var authViewModel = AuthViewModel()
+    @EnvironmentObject private var authViewModel: AuthViewModel
+    @State private var showSignUp = false
     @State private var email = ""
     @State private var password = ""
     @State private var isSecured = true
@@ -31,7 +32,7 @@ struct SignInView: View {
                     Text("Email")
                         .font(.custom("Gilroy-Medium", size: 16))
                     TextField("Enter your email", text: $email)
-                        .textFieldStyle(NectarTextFieldStyle())
+                        .textFieldStyle(CustomTextFieldStyle())
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                 }
@@ -52,7 +53,7 @@ struct SignInView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .textFieldStyle(NectarTextFieldStyle())
+                    .textFieldStyle(CustomTextFieldStyle())
                 }
             }
             .padding(.horizontal)
@@ -81,15 +82,20 @@ struct SignInView: View {
                 Text("Don't have an account?")
                     .font(.custom("Gilroy-Medium", size: 14))
                 
-                NavigationLink("Sign Up", destination: SignUp())
-                    .font(.custom("Gilroy-SemiBold", size: 14))
-                    .foregroundColor(.green)
+                Button(action: { showSignUp = true }) {
+                    Text("Sign Up")
+                        .font(.custom("Gilroy-SemiBold", size: 14))
+                        .foregroundColor(.green)
+                }
             }
             .padding(.top)
             
             Spacer()
         }
         .navigationBarHidden(true)
+        .fullScreenCover(isPresented: $showSignUp) {
+            SignUp()
+        }
         .alert("Error", isPresented: $authViewModel.showError) {
             Button("OK", role: .cancel) { }
         } message: {
@@ -98,11 +104,6 @@ struct SignInView: View {
     }
     
     private func signIn() {
-        guard !email.isEmpty && !password.isEmpty else {
-            authViewModel.showError = true
-            authViewModel.errorMessage = "Please enter both email and password"
-            return
-        }
         authViewModel.signIn(email: email, password: password)
     }
 } 

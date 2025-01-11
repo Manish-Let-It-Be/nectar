@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var authViewModel = AuthViewModel()
-    @StateObject private var cartManager = CartManager()
-    @StateObject private var favoritesManager = FavoritesManager()
-    @StateObject private var productService = ProductService()
+    @EnvironmentObject private var authViewModel: AuthViewModel
     @AppStorage("hasSeenWelcome") private var hasSeenWelcome = false
     
     var body: some View {
-        if !hasSeenWelcome {
-            WelcomeView()
-                .onDisappear {
-                    hasSeenWelcome = true
+        NavigationView {
+            Group {
+                if authViewModel.isAuthenticated {
+                    MainTabView()
+                } else if !hasSeenWelcome {
+                    WelcomeView()
+                        .onDisappear {
+                            hasSeenWelcome = true
+                        }
+                } else {
+                    SignInView()
                 }
-        } else if authViewModel.isAuthenticated {
-            MainTabView()
-                .environmentObject(authViewModel)
-                .environmentObject(cartManager)
-                .environmentObject(favoritesManager)
-                .environmentObject(productService)
-        } else {
-            SignInView()
-                .environmentObject(authViewModel)
+            }
+        }
+        .onAppear {
+            // Check for existing login session
+            authViewModel.checkAuth()
         }
     }
 }

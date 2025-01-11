@@ -35,7 +35,24 @@
 			membershipExceptions = (
 				Info.plist,
 			);
+			platformFiltersByRelativePath = {
+				Launch_Screen.storyboard = (ios, );
+			};
 			target = 08BD33672D32801300570BE7 /* nectar */;
+		};
+		08D4CB592D33060800CC1757 /* Exceptions for "nectar" folder in "nectarTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Launch_Screen.storyboard,
+			);
+			target = 08BD33782D32801500570BE7 /* nectarTests */;
+		};
+		08D4CB5A2D33060800CC1757 /* Exceptions for "nectar" folder in "nectarUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Launch_Screen.storyboard,
+			);
+			target = 08BD33822D32801500570BE7 /* nectarUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -44,6 +61,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				08BD33CC2D328BC700570BE7 /* Exceptions for "nectar" folder in "nectar" target */,
+				08D4CB592D33060800CC1757 /* Exceptions for "nectar" folder in "nectarTests" target */,
+				08D4CB5A2D33060800CC1757 /* Exceptions for "nectar" folder in "nectarUITests" target */,
 			);
 			path = nectar;
 			sourceTree = "<group>";
@@ -401,8 +420,8 @@
 		08BD338E2D32801500570BE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = nectar/nectar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -441,8 +460,8 @@
 		08BD338F2D32801500570BE7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = nectar/nectar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
