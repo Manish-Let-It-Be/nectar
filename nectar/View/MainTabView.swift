@@ -4,7 +4,7 @@ struct MainTabView: View {
     @State private var selectedTab = 0
     @StateObject private var locationService: LocationService = LocationService()
     @StateObject private var productService: ProductService = ProductService()
-
+    
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -76,4 +76,8 @@ struct MainTabView: View {
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
     }
-} 
+}
+
+#Preview{
+    MainTabView()
+}

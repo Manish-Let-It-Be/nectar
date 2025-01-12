@@ -44,6 +44,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Launch_Screen.storyboard,
+				View/MainTabView.swift,
 			);
 			target = 08BD33782D32801500570BE7 /* nectarTests */;
 		};
@@ -51,6 +52,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Launch_Screen.storyboard,
+				View/MainTabView.swift,
 			);
 			target = 08BD33822D32801500570BE7 /* nectarUITests */;
 		};
