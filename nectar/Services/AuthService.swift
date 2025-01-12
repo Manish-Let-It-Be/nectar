@@ -25,47 +25,60 @@ protocol AuthServiceProtocol {
 }
 
 class AuthService: AuthServiceProtocol {
+    private let baseURL = "https://yourapi.com/api" // Here actual API base URL will be placed
+    
     func signIn(email: String, password: String) -> AnyPublisher<User, AuthError> {
-        // TODO: Implement actual authentication logic
-        // This is a mock implementation
-        return Future<User, AuthError> { promise in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                if email == "test@example.com" && password == "password" {
-                    let user = User(
-                        id: "1",
-                        name: "Test User",
-                        email: email,
-                        phoneNumber: nil,
-                        deliveryAddresses: []
-                    )
-                    promise(.success(user))
+        guard let url = URL(string: "\(baseURL)/login") else {
+            return Fail(error: AuthError.networkError).eraseToAnyPublisher()
+        }
+        
+        let body: [String: Any] = ["email": email, "password": password]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .map { $0.data }
+            .decode(type: User.self, decoder: JSONDecoder())
+            .mapError { error in
+                if let urlError = error as? URLError {
+                    return .networkError
                 } else {
-                    promise(.failure(.invalidCredentials))
+                    return .invalidCredentials
                 }
             }
-        }
-        .eraseToAnyPublisher()
+            .eraseToAnyPublisher()
     }
     
     func signUp(name: String, email: String, password: String) -> AnyPublisher<User, AuthError> {
-        // TODO: Implement actual sign up logic
-        return Future<User, AuthError> { promise in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let user = User(
-                    id: UUID().uuidString,
-                    name: name,
-                    email: email,
-                    phoneNumber: nil,
-                    deliveryAddresses: []
-                )
-                promise(.success(user))
-            }
+        guard let url = URL(string: "\(baseURL)/register") else {
+            return Fail(error: AuthError.networkError).eraseToAnyPublisher()
         }
-        .eraseToAnyPublisher()
+        
+        let body: [String: Any] = ["name": name, "email": email, "password": password]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        
+        return URLSession.shared.dataTaskPublisher(for: request)
+            .map { $0.data }
+            .decode(type: User.self, decoder: JSONDecoder())
+            .mapError { error in
+                if let urlError = error as? URLError {
+                    return .networkError
+                } else {
+                    return .unknown
+                }
+            }
+            .eraseToAnyPublisher()
     }
     
     func signOut() -> AnyPublisher<Void, AuthError> {
-        // TODO: Implement actual sign out logic
+        // Implement actual sign out logic if needed
         return Future<Void, AuthError> { promise in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 promise(.success(()))

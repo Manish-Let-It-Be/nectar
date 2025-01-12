@@ -8,7 +8,27 @@ struct CountryPicker: View {
         Country(name: "United States", code: "US", phoneCode: "+1"),
         Country(name: "United Kingdom", code: "GB", phoneCode: "+44"),
         Country(name: "India", code: "IN", phoneCode: "+91"),
-        // Add more countries as needed
+        Country(name: "Canada", code: "CA", phoneCode: "+1"),
+        Country(name: "Australia", code: "AU", phoneCode: "+61"),
+        Country(name: "Germany", code: "DE", phoneCode: "+49"),
+        Country(name: "France", code: "FR", phoneCode: "+33"),
+        Country(name: "Italy", code: "IT", phoneCode: "+39"),
+        Country(name: "Spain", code: "ES", phoneCode: "+34"),
+        Country(name: "Brazil", code: "BR", phoneCode: "+55"),
+        Country(name: "Japan", code: "JP", phoneCode: "+81"),
+        Country(name: "China", code: "CN", phoneCode: "+86"),
+        Country(name: "South Korea", code: "KR", phoneCode: "+82"),
+        Country(name: "Russia", code: "RU", phoneCode: "+7"),
+        Country(name: "Mexico", code: "MX", phoneCode: "+52"),
+        Country(name: "Argentina", code: "AR", phoneCode: "+54"),
+        Country(name: "Chile", code: "CL", phoneCode: "+56"),
+        Country(name: "Peru", code: "PE", phoneCode: "+51"),
+        Country(name: "Colombia", code: "CO", phoneCode: "+57"),
+        Country(name: "Venezuela", code: "VE", phoneCode: "+58"),
+        Country(name: "Ecuador", code: "EC", phoneCode: "+593"),
+        Country(name: "Bolivia", code: "BO", phoneCode: "+591"),
+        Country(name: "Paraguay", code: "PY", phoneCode: "+595"),
+        Country(name: "Uruguay", code: "UY", phoneCode: "+598"),
     ]
     
     var body: some View {
