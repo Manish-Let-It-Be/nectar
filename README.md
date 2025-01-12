@@ -24,12 +24,27 @@ My development process was driven by a hands-on, experiential approach. By embra
 > **Note:** Many features are not fully optimized, and some are demographic. This project was primarily a learning experience in iOS development.
 
 ## Screenshots
-![Screenshot 1](path/to/screenshot1.png)
-![Screenshot 2](path/to/screenshot2.png)
+Click on any of the images to see the video...
 
-## Screen Recording
-[Watch the Screen Recording](path/to/screen-recording.mp4)
+<a href="https://drive.google.com/file/d/1ODBi2qwQdqwjyldhYQPMx_5Sj7bNWz4K/view?usp=sharing">
+    <img src="Visuals/nectar1.png" alt="UI" height="450">
+    <img src="Visuals/nectar2.png" alt="UI2" height="450">
+    <img src="Visuals/nectar3.png" alt="UI2" height="450">
+    <img src="Visuals/nectar4.png" alt="UI2" height="450">
+    <img src="Visuals/nectar5.png" alt="UI2" height="450">
+    <img src="Visuals/nectar6.png" alt="UI2" height="450">
+    <img src="Visuals/nectar7.png" alt="UI2" height="450">
+</a>
+
 
 
 ## Contributing
 If you'd like to contribute to Nectar, feel free to fork the repository and submit a pull request. Any contributions are welcome!
+
+
+
+---
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=39FF14&center=true&width=435&lines=Thank+You+For+Checking+!">
+</p>
