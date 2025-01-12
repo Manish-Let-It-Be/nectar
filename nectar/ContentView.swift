@@ -39,6 +39,7 @@ struct ContentView: View {
         .environmentObject(CartManager())
         .environmentObject(CheckoutViewModel())
         .environmentObject(FavoritesManager())
+        .environmentObject(DeliveryAddressViewModel.shared)
         .environmentObject(OrderService())
         .environmentObject(HomeViewModel(productService: ProductService()))
         .environmentObject(ProductDetailViewModel(product: ProductModel(

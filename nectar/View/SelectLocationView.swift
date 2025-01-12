@@ -30,13 +30,10 @@ struct SelectLocationView: View {
             }
             
             Button(action: {
-                switch locationService.authorizationStatus {
-                case .notDetermined:
+                if locationService.authorizationStatus == .notDetermined {
                     locationService.requestLocationPermission()
-                case .authorizedWhenInUse, .authorizedAlways:
+                } else if locationService.authorizationStatus == .authorizedWhenInUse || locationService.authorizationStatus == .authorizedAlways {
                     navigateToSignIn = true
-                default:
-                    showLocationDeniedAlert = true
                 }
             }) {
                 Text(locationService.authorizationStatus == .notDetermined ? "Enable Location Services" : "Continue")

@@ -2,7 +2,7 @@ import SwiftUI
 import MapKit
 
 struct DeliveryAddressView: View {
-    @StateObject private var viewModel = DeliveryAddressViewModel()
+    @EnvironmentObject var viewModel: DeliveryAddressViewModel
     @State private var showAddAddress = false
     
     var body: some View {
@@ -154,6 +154,7 @@ struct DeliveryAddress: Identifiable {
 
 // ViewModel
 class DeliveryAddressViewModel: ObservableObject {
+    static let shared = DeliveryAddressViewModel()
     @Published var addresses: [DeliveryAddress] = []
     
     func addAddress(_ address: DeliveryAddress) {
@@ -223,5 +224,6 @@ class DeliveryAddressViewModel: ObservableObject {
 
 #Preview {
     DeliveryAddressView()
+        .environmentObject(DeliveryAddressViewModel.shared)
         .environmentObject(AuthViewModel())
 } 

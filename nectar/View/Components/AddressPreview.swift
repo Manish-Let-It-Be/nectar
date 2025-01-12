@@ -1,7 +1,8 @@
 import SwiftUI
+import CoreLocation
 
 struct AddressPreview: View {
-    let address: OrderDeliveryAddress
+    let address: DeliveryAddress
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -15,15 +16,16 @@ struct AddressPreview: View {
 }
 
 #Preview {
-    AddressPreview(address: OrderDeliveryAddress(
+    AddressPreview(address: DeliveryAddress(
         id: "1",
         name: "John Doe",
+        phoneNumber: "1234567890",
         street: "123 Main St",
+        apartment: "Apt 1",
         city: "San Francisco",
         state: "CA",
         zipCode: "94105",
-        country: "USA",
-        phoneNumber: "1234567890",
-        formattedAddress: "123 Main St, San Francisco, CA 94105"
+        isDefault: false,
+        coordinates: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
     ))
 } 

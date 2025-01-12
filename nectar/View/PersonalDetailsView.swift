@@ -4,6 +4,7 @@ struct PersonalDetailsView: View {
     @EnvironmentObject private var authViewModel: AuthViewModel
     @StateObject private var viewModel = PersonalDetailsViewModel()
     @Environment(\.presentationMode) var presentationMode
+    @Binding var accountViewModel: AccountViewModel
     
     var body: some View {
         ScrollView {
@@ -67,6 +68,8 @@ struct PersonalDetailsView: View {
                 // Save Button
                 Button(action: {
                     if viewModel.validateFields() {
+                        accountViewModel.name = viewModel.name
+                        accountViewModel.email = viewModel.email
                         viewModel.saveChanges()
                         presentationMode.wrappedValue.dismiss()
                     }
@@ -250,6 +253,6 @@ extension String {
 }
 
 #Preview {
-    PersonalDetailsView()
+    PersonalDetailsView(accountViewModel: .constant(AccountViewModel()))
         .environmentObject(AuthViewModel())
 } 

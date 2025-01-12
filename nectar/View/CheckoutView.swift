@@ -64,6 +64,12 @@ struct CheckoutView: View {
         .sheet(isPresented: $showOrderSuccess) {
             OrderSuccessView(selectedTab: $selectedTab)
         }
+        Button("Proceed to Checkout") {
+            showAddressList = true
+        }
+        .sheet(isPresented: $showAddressList) {
+            AddressListView(viewModel: DeliveryAddressViewModel.shared, selectedAddress: $selectedAddress)
+        }
     }
     
     private func placeOrder() {

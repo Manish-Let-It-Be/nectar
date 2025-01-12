@@ -1,5 +1,6 @@
 import SwiftUI
 import MapKit
+import CoreLocation
 
 struct IdentifiableCoordinate: Identifiable {
     let id = UUID()

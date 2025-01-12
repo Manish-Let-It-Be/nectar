@@ -84,10 +84,7 @@ struct HomeView: View {
                 }
             )
             .sheet(isPresented: $showLocationPicker) {
-                LocationPickerView(selectedLocation: Binding(
-                    get: { locationService.selectedLocation },
-                    set: { locationService.selectedLocation = $0 }
-                ))
+                LocationPickerView(selectedLocation: $locationService.selectedLocation)
             }
             .sheet(item: $showingProductDetail) { product in
                 ProductDetailView(product: product)

@@ -3,6 +3,7 @@ import PhotosUI
 
 struct AccountView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var deliveryAddressViewModel: DeliveryAddressViewModel
     @StateObject var viewModel = AccountViewModel()
     @StateObject var cartManager = CartManager()
     @ObservedObject var productService: ProductService
@@ -41,9 +42,9 @@ struct AccountView: View {
                         }
                         
                         VStack(spacing: 4) {
-                            Text(authViewModel.currentUser?.name ?? "Guest User")
+                            Text(viewModel.name.isEmpty ? "Guest User" : viewModel.name)
                                 .font(.custom("Gilroy-Bold", size: 20))
-                            Text(authViewModel.currentUser?.email ?? "")
+                            Text(viewModel.email.isEmpty ? "" : viewModel.email)
                                 .font(.custom("Gilroy-Medium", size: 14))
                                 .foregroundColor(.gray)
                         }
@@ -59,7 +60,12 @@ struct AccountView: View {
                                     .foregroundStyle(Color(.black))
                             }
                             
-                            NavigationLink(destination: PersonalDetailsView()) {
+                            NavigationLink(destination: PersonalDetailsView(accountViewModel: Binding(get: {
+                                viewModel
+                            }, set: { newValue in
+                                viewModel.name = newValue.name
+                                viewModel.email = newValue.email
+                            }))) {
                                 MenuRow(image: "a_my_detail", title: "My Details")
                                     .foregroundStyle(Color(.black))
                             }
@@ -150,6 +156,9 @@ struct AccountView: View {
                 
                 UINavigationBar.appearance().standardAppearance = appearance
                 UINavigationBar.appearance().scrollEdgeAppearance = appearance
+                
+                // Provide the shared DeliveryAddressViewModel
+                DeliveryAddressViewModel.shared
             }
 
         }
@@ -244,6 +253,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 // ViewModel
 class AccountViewModel: ObservableObject {
     @Published var profileImage: UIImage?
+    @Published var name: String = ""
+    @Published var email: String = ""
     
     // Add more profile-related functionality here
 }
