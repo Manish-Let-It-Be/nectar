@@ -1,4 +1,10 @@
-# Nectar: A Grocery Delivery App
+# [Nectar: A Grocery Delivery App](https://drive.google.com/file/d/1HazlsVQp1vIjmAzgIqQW7ds4hvIaiZCb/view?usp=sharing)
+
+<!--
+<a>
+    <img src="Visuals/app_logo.png" alt="logo" height="80">
+</a>
+--->
 
 ## About My Project
 Nectar is a grocery delivery app developed with the help of **Cursor AI** and the **SweetPad** extension. This project was created within a tight time frame, focusing on learning by experimentation and reverse engineering. My goal was to understand iOS Development.
