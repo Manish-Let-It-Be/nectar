@@ -8,13 +8,14 @@ struct AccountView: View {
     @ObservedObject var productService: ProductService
     @State private var showImagePicker = false
     @State private var showLogoutAlert = false
+    @State private var selectedSegment = 0
 
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 10) {
                     // Profile Header
-                    VStack(spacing: 16) {
+                    VStack(spacing: 15) {
                         // Profile Image
                         ZStack(alignment: .bottomTrailing) {
                             if let profileImage = viewModel.profileImage {
@@ -53,24 +54,29 @@ struct AccountView: View {
                     VStack(spacing: 24) {
                         // Orders & Details Section
                         MenuSection(title: "Shopping") {
-                            NavigationLink(destination: OrdersView()) {
+                            NavigationLink(destination: OrdersView(selectedSegment: $selectedSegment)) {
                                 MenuRow(image: "a_order", title: "Orders")
+                                    .foregroundStyle(Color(.black))
                             }
                             
                             NavigationLink(destination: PersonalDetailsView()) {
                                 MenuRow(image: "a_my_detail", title: "My Details")
+                                    .foregroundStyle(Color(.black))
                             }
                             
                             NavigationLink(destination: DeliveryAddressView()) {
                                 MenuRow(image: "a_delivery_address", title: "Delivery Address")
+                                    .foregroundStyle(Color(.black))
                             }
                             
                             NavigationLink(destination: PaymentMethodsView()) {
                                 MenuRow(image: "paymenth_methods", title: "Payment Methods")
+                                    .foregroundStyle(Color(.black))
                             }
                             
                             NavigationLink(destination: PromoCodesView()) {
                                 MenuRow(image: "a_promocode", title: "Promo Codes")
+                                    .foregroundStyle(Color(.black))
                             }
                         }
                         
@@ -78,6 +84,7 @@ struct AccountView: View {
                         MenuSection(title: "Notifications") {
                             NavigationLink(destination: NotificationsView()) {
                                 MenuRow(image: "a_noitification", title: "Notifications")
+                                    .foregroundStyle(Color(.black))
                             }
                         }
                         
@@ -85,10 +92,12 @@ struct AccountView: View {
                         MenuSection(title: "Help") {
                             NavigationLink(destination: HelpView()) {
                                 MenuRow(image: "a_help", title: "Get Help")
+                                    .foregroundStyle(Color(.blue))
                             }
                             
                             NavigationLink(destination: AboutView()) {
                                 MenuRow(image: "a_about", title: "About Us")
+                                    .foregroundStyle(Color(.blue))
                             }
                         }
                     }
@@ -100,13 +109,14 @@ struct AccountView: View {
                             Image("logout")
                                 .resizable()
                                 .frame(width: 20, height: 20)
+                            
                             Text("Log Out")
                                 .font(.custom("Gilroy-SemiBold", size: 16))
                         }
                         .foregroundColor(.red)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.systemGray6))
+                        .background(Color(.black))
                         .cornerRadius(10)
                     }
                     .padding()
@@ -127,6 +137,21 @@ struct AccountView: View {
                     secondaryButton: .cancel()
                 )
             }
+            .onAppear {
+                // Customize navigation bar appearance
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = .white // Set the background color
+                appearance.titleTextAttributes = [.foregroundColor: UIColor.black] // Set title color
+                appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Set large title color
+                
+                // Set the back button color
+                appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.red] // Change this to your desired color
+                
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+            }
+
         }
     }
 }

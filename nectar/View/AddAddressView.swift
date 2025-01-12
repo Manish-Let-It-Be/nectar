@@ -213,7 +213,7 @@ class AddAddressViewModel: ObservableObject {
 
 extension String {
     func isValidZipCode() -> Bool {
-        let zipRegex = "^[0-9]{5}(-[0-9]{4})?$"
+        let zipRegex = "^[0-9]{5,6}(-[0-9]{4})?$"
         let zipTest = NSPredicate(format: "SELF MATCHES %@", zipRegex)
         return zipTest.evaluate(with: self)
     }

@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @StateObject private var favoritesManager = FavoritesManager()
+//    @StateObject private var favoritesManager = FavoritesManager()
+    @EnvironmentObject private var favoritesManager: FavoritesManager
     @EnvironmentObject private var cartManager: CartManager
     @State private var showingProductDetail: ProductModel?
     
@@ -52,7 +53,7 @@ struct EmptyFavoritesView: View {
         VStack(spacing: 20) {
             Image(systemName: "heart.fill")
                 .font(.system(size: 60))
-                .foregroundColor(.gray)
+                .foregroundColor(.red)
             
             Text("No Favorites Yet")
                 .font(.custom("Gilroy-Bold", size: 20))

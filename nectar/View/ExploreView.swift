@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ExploreView: View {
     @StateObject private var productService = ProductService()
-    @StateObject private var favoritesManager = FavoritesManager()
+    @EnvironmentObject private var favoritesManager: FavoritesManager
     @EnvironmentObject private var cartManager: CartManager
     @State private var showingProductDetail: ProductModel?
     @State private var showFilters = false

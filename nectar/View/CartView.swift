@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct CartView: View {
-    @StateObject private var cartManager = CartManager()
+    @Binding var selectedTab: Int
+    // @StateObject private var cartManager = CartManager()
+    @EnvironmentObject private var cartManager: CartManager
     @State private var showCheckout = false
     @State private var showEmptyAlert = false
     
@@ -73,7 +75,7 @@ struct CartView: View {
                     .foregroundColor(.red)
             })
             .sheet(isPresented: $showCheckout) {
-                CheckoutView(cartManager: cartManager)
+                CheckoutView(selectedTab: $selectedTab, cartManager: cartManager)
             }
             .alert(isPresented: $showEmptyAlert) {
                 Alert(
@@ -136,7 +138,7 @@ struct CartItemRow: View {
                     Button(action: {
                         onQuantityChange(item.quantity + 1)
                     }) {
-                        Image("add_to_cart")
+                        Image(systemName: "plus.circle.fill")
                             .resizable()
                             .frame(width: 20, height: 20)
                     }
@@ -182,7 +184,7 @@ struct EmptyCartView: View {
 }
 
 #Preview {
-    CartView()
+    CartView(selectedTab: .constant(0))
         .environmentObject(AuthViewModel())
         .environmentObject(CartManager())
         .environmentObject(CheckoutViewModel())

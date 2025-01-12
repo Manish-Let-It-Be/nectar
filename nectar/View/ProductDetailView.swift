@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProductDetailView: View {
     let product: ProductModel
-    @StateObject private var favoritesManager = FavoritesManager()
+    @EnvironmentObject private var favoritesManager: FavoritesManager
     @StateObject private var viewModel: ProductDetailViewModel
     @EnvironmentObject private var cartManager: CartManager
     @Environment(\.presentationMode) var presentationMode
@@ -23,8 +23,10 @@ struct ProductDetailView: View {
                         .scaledToFit()
                         .frame(height: 300)
                     
-                    Button(action: { viewModel.toggleFavorite() }) {
-                        Image(viewModel.isFavorite ? "favorite" : "fav")
+                    Button(action: { 
+                        favoritesManager.toggleFavorite(product)
+                    }) {
+                        Image(favoritesManager.isFavorite(product) ? "favorite" : "fav")
                             .resizable()
                             .frame(width: 24, height: 24)
                             .padding(12)
@@ -96,17 +98,20 @@ struct ProductDetailView: View {
                     HStack {
                         Button(action: { viewModel.decrementQuantity() }) {
                             Image(systemName: "minus")
-                                .padding(8)
+                                .foregroundStyle(Color(.red))
+                                .padding(1)
                         }
                         
                         Text("\(viewModel.quantity)")
                             .font(.custom("Gilroy-Bold", size: 18))
-                            .frame(width: 40)
+                            .frame(width: 30)
+                            .padding(5)
                         
                         Button(action: { viewModel.incrementQuantity() }) {
-                            Image("add_to_cart")
+                            Image(systemName: "plus")
                                 .resizable()
-                                .frame(width: 24, height: 24)
+                                .frame(width: 20, height: 20)
+                                .foregroundStyle(Color(.green))
                         }
                     }
                     .background(Color(.systemGray6))
@@ -160,39 +165,6 @@ struct NutritionFact: Identifiable {
     let value: String
 }
 
-// class ProductDetailViewModel: ObservableObject {
-//     @Published var quantity = 1
-//     @Published var isFavorite: Bool
-//     private let favoritesManager: FavoritesManager
-//     private let product: Product
-    
-//     let nutritionFacts = [
-//         NutritionFact(name: "Calories", value: "89"),
-//         NutritionFact(name: "Protein", value: "1.1g"),
-//         NutritionFact(name: "Carbs", value: "22.8g"),
-//         NutritionFact(name: "Fat", value: "0.3g")
-//     ]
-    
-//     init(product: Product, favoritesManager: FavoritesManager) {
-//         self.product = product
-//         self.favoritesManager = favoritesManager
-//         self.isFavorite = favoritesManager.isFavorite(product)
-//     }
-    
-//     func incrementQuantity() {
-//         quantity += 1
-//     }
-    
-//     func decrementQuantity() {
-//         guard quantity > 1 else { return }
-//         quantity -= 1
-//     }
-    
-//     func toggleFavorite() {
-//         favoritesManager.toggleFavorite(product)
-//         isFavorite.toggle()
-//     }
-// } 
 
 #Preview {
     ProductDetailView(product: ProductModel(

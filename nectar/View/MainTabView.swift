@@ -4,77 +4,115 @@ struct MainTabView: View {
     @State private var selectedTab = 0
     @StateObject private var locationService: LocationService = LocationService()
     @StateObject private var productService: ProductService = ProductService()
-    
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         TabView(selection: $selectedTab) {
             HomeView(locationService: locationService, productService: productService)
                 .tabItem {
-                    VStack {
-                        Image("store_tab")
-                            .renderingMode(.template)
-                        Text("Shop")
-                            .font(.custom("Gilroy-Medium", size: 12))
-                    }
+                    TabBarItem(
+                        imageName: "store_tab",
+                        title: "Shop",
+                        isSelected: selectedTab == 0
+                    )
                 }
                 .tag(0)
             
             ExploreView()
                 .tabItem {
-                    VStack {
-                        Image("explore_tab")
-                            .renderingMode(.template)
-                        Text("Explore")
-                            .font(.custom("Gilroy-Medium", size: 12))
-                    }
+                    TabBarItem(
+                        imageName: "explore_tab",
+                        title: "Explore",
+                        isSelected: selectedTab == 1
+                    )
                 }
                 .tag(1)
             
-            CartView()
+            CartView(selectedTab: $selectedTab)
                 .tabItem {
-                    VStack {
-                        Image("cart_tab")
-                            .renderingMode(.template)
-                        Text("Cart")
-                            .font(.custom("Gilroy-Medium", size: 12))
-                    }
+                    TabBarItem(
+                        imageName: "cart_tab",
+                        title: "Cart",
+                        isSelected: selectedTab == 2
+                    )
                 }
                 .tag(2)
             
             FavoritesView()
                 .tabItem {
-                    VStack {
-                        Image("fav_tab")
-                            .renderingMode(.template)
-                        Text("Favorites")
-                            .font(.custom("Gilroy-Medium", size: 12))
-                    }
+                    TabBarItem(
+                        imageName: "fav_tab",
+                        title: "Favorites",
+                        isSelected: selectedTab == 3
+                    )
                 }
                 .tag(3)
             
             AccountView(productService: productService)
                 .tabItem {
-                    VStack {
-                        Image("account_tab")
-                            .renderingMode(.template)
-                        Text("Account")
-                            .font(.custom("Gilroy-Medium", size: 12))
-                    }
+                    TabBarItem(
+                        imageName: "account_tab",
+                        title: "Account",
+                        isSelected: selectedTab == 4
+                    )
                 }
                 .tag(4)
         }
-        .accentColor(Color("AccentColor"))
+        .accentColor(.green)  // Selected tab color
         .onAppear {
-            // Customize tab bar appearance
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .systemBackground
-            
-            // Use this appearance when scrolling behind the TabView
-            UITabBar.appearance().standardAppearance = appearance
-            // Use this appearance when scrolled all the way up
-            UITabBar.appearance().scrollEdgeAppearance = appearance
+            configureTabBarAppearance()
         }
+    }
+    
+    private func configureTabBarAppearance() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .systemBackground
+        
+        // Configure normal state
+        appearance.stackedLayoutAppearance.normal.iconColor = .black
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
+            .font: UIFont(name: "Gilroy-Medium", size: 15) ?? .systemFont(ofSize: 10),
+            .foregroundColor: UIColor.gray
+        ]
+        
+        // Configure selected state
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(named: "AccentColor") ?? .green
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
+            .font: UIFont(name: "Gilroy-Medium", size: 15) ?? .systemFont(ofSize: 10),
+            .foregroundColor: UIColor(named: "AccentColor") ?? .black
+        ]
+        
+        // Adjust spacing between icon and text
+        appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
+        appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
+        
+        
+        // Apply the appearance
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+}
+
+struct TabBarItem: View {
+    let imageName: String
+    let title: String
+    let isSelected: Bool
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(imageName)
+                .renderingMode(.template)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 20, height: 20)
+            
+            Text(title)
+                .font(.custom("Gilroy-Medium", size: 10))
+                .lineLimit(1)
+        }
+        .foregroundColor(isSelected ? .green : .gray)
+        .frame(maxHeight: 40)
     }
 }
 

@@ -1,22 +1,23 @@
 import SwiftUI
 
 struct OrdersView: View {
-    @State private var selectedTab = 0
+    @EnvironmentObject private var orderService: OrderService
+    @Binding var selectedSegment: Int
     
     var body: some View {
         VStack {
             // Custom segmented control
             CustomSegmentedControl(
-                selection: $selectedTab,
+                selection: $selectedSegment,
                 options: ["Ongoing", "History"]
             )
             .padding()
             
-            TabView(selection: $selectedTab) {
-                OngoingOrdersView()
+            TabView(selection: $selectedSegment) {
+                OngoingOrdersView(orders: orderService.ongoingOrders)
                     .tag(0)
                 
-                OrderHistoryView()
+                OrderHistoryView(orders: orderService.orderHistory)
                     .tag(1)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -51,24 +52,38 @@ struct CustomSegmentedControl: View {
 }
 
 struct OngoingOrdersView: View {
+    let orders: [Order]
+    
     var body: some View {
         ScrollView {
-            if true { // Replace with actual data check
+            if orders.isEmpty {
                 EmptyOrdersView(message: "No ongoing orders")
             } else {
-                // Show ongoing orders
+                LazyVStack(spacing: 16) {
+                    ForEach(orders) { order in
+                        OrderCard(order: order)
+                    }
+                }
+                .padding()
             }
         }
     }
 }
 
 struct OrderHistoryView: View {
+    let orders: [Order]
+    
     var body: some View {
         ScrollView {
-            if true { // Replace with actual data check
+            if orders.isEmpty {
                 EmptyOrdersView(message: "No order history")
             } else {
-                // Show order history
+                LazyVStack(spacing: 16) {
+                    ForEach(orders) { order in
+                        OrderCard(order: order)
+                    }
+                }
+                .padding()
             }
         }
     }
@@ -93,10 +108,55 @@ struct EmptyOrdersView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }
-} 
+}
+
+struct OrderCard: View {
+    let order: Order
+    @State private var showOrderDetail = false
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Order #\(order.id.prefix(8))")
+                    .font(.custom("Gilroy-Bold", size: 16))
+                
+                Spacer()
+                
+                Text(order.status.rawValue)
+                    .font(.custom("Gilroy-Medium", size: 14))
+                    .foregroundColor(order.status.color)
+            }
+            
+            Divider()
+            
+            HStack {
+                Text("\(order.items.count) items")
+                    .font(.custom("Gilroy-Medium", size: 14))
+                    .foregroundColor(.gray)
+                
+                Spacer()
+                
+                Text("$\(order.totalAmount, specifier: "%.2f")")
+                    .font(.custom("Gilroy-Bold", size: 16))
+                    .foregroundColor(.green)
+            }
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .cornerRadius(10)
+        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .onTapGesture {
+            showOrderDetail = true
+        }
+        .sheet(isPresented: $showOrderDetail) {
+            OrderDetailView(order: order)
+        }
+    }
+}
 
 #Preview {
-    OrdersView()
+    OrdersView(selectedSegment: .constant(0))
+        .environmentObject(OrderService())
         .environmentObject(AuthViewModel())
         .environmentObject(CartManager())
 }

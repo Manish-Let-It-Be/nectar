@@ -45,6 +45,18 @@ struct OrderItem: Identifiable, Codable {
 }
 
 struct OrderDeliveryAddress: Codable {
+    static let `default` = OrderDeliveryAddress(
+        id: "default",
+        name: "Default Address",
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        zipCode: "12345",
+        country: "USA",
+        phoneNumber: "123-456-7890",
+        formattedAddress: "123 Main St, Anytown, CA 12345, USA"
+    )
+    
     let id: String
     let name: String
     let street: String
@@ -57,6 +69,12 @@ struct OrderDeliveryAddress: Codable {
 }
 
 struct OrderPaymentMethod: Codable {
+    static let `default` = OrderPaymentMethod(
+        id: "default",
+        type: .creditCard,
+        lastFourDigits: "1234"
+    )
+    
     let id: String
     let type: PaymentType
     let lastFourDigits: String
@@ -65,12 +83,16 @@ struct OrderPaymentMethod: Codable {
         case creditCard = "Credit Card"
         case debitCard = "Debit Card"
         case applePay = "Apple Pay"
-        
+        case upi = "UPI"
+        case cod = "Cash on Delivery"
+
         var imageName: String {
             switch self {
             case .creditCard: return "master"
             case .debitCard: return "master"
             case .applePay: return "apple_logo"
+            case .upi: return "upi"
+            case .cod: return "cod"
             }
         }
     }

@@ -229,13 +229,26 @@ class CardViewModel: ObservableObject {
         
         // Validate expiry
         let cleanedExpiry = expiry.filter { $0.isNumber }
-        if cleanedExpiry.count != 4 {
+        if cleanedExpiry.count < 4 {
             expiryError = "Invalid expiry date"
             isValid = false
         } else {
             let month = Int(cleanedExpiry.prefix(2)) ?? 0
+            var year = Int(cleanedExpiry.suffix(cleanedExpiry.count - 2)) ?? 0
+            
+            // Convert 4-digit year to 2-digit year if necessary
+            if year > 100 {
+                year = year % 100
+            }
+            
+            let currentYear = Calendar.current.component(.year, from: Date()) % 100
+            let currentMonth = Calendar.current.component(.month, from: Date())
+            
             if month < 1 || month > 12 {
                 expiryError = "Invalid month"
+                isValid = false
+            } else if year < currentYear || (year == currentYear && month < currentMonth) {
+                expiryError = "Card has expired"
                 isValid = false
             }
         }
