@@ -67,30 +67,33 @@ struct MainTabView: View {
     private func configureTabBarAppearance() {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .systemBackground
+        appearance.backgroundColor = UIColor.systemBackground
         
-        // Configure normal state
-        appearance.stackedLayoutAppearance.normal.iconColor = .black
+        // Configure normal state with adaptive colors
+        appearance.stackedLayoutAppearance.normal.iconColor = UIColor.label
         appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
             .font: UIFont(name: "Gilroy-Medium", size: 15) ?? .systemFont(ofSize: 10),
-            .foregroundColor: UIColor.gray
+            .foregroundColor: UIColor.secondaryLabel
         ]
         
-        // Configure selected state
-        appearance.stackedLayoutAppearance.selected.iconColor = UIColor(named: "AccentColor") ?? .green
+        // Configure selected state with adaptive colors
+        appearance.stackedLayoutAppearance.selected.iconColor = UIColor.systemGreen
         appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
             .font: UIFont(name: "Gilroy-Medium", size: 15) ?? .systemFont(ofSize: 10),
-            .foregroundColor: UIColor(named: "AccentColor") ?? .black
+            .foregroundColor: UIColor.systemGreen
         ]
         
         // Adjust spacing between icon and text
         appearance.stackedLayoutAppearance.normal.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
         appearance.stackedLayoutAppearance.selected.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
         
-        
         // Apply the appearance
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
+        
+        // Ensure icons use template rendering mode
+        UITabBar.appearance().tintColor = UIColor.systemGreen
+        UITabBar.appearance().unselectedItemTintColor = UIColor.secondaryLabel
     }
 }
 
@@ -111,7 +114,7 @@ struct TabBarItem: View {
                 .font(.custom("Gilroy-Medium", size: 10))
                 .lineLimit(1)
         }
-        .foregroundColor(isSelected ? .green : .gray)
+        //.foregroundColor(isSelected ? .green : .gray) // Removed to let UITabBarAppearance handle colors
         .frame(maxHeight: 40)
     }
 }

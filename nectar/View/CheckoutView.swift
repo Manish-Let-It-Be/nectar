@@ -62,8 +62,15 @@ struct CheckoutView: View {
             })
         }
         .sheet(isPresented: $showOrderSuccess) {
-            OrderSuccessView(selectedTab: $selectedTab)
+            OrderSuccessView(selectedTab: $selectedTab, onTrackOrder: {
+                navigateToOrders = true
+            })
         }
+        .background(
+            NavigationLink(destination: OrdersView(selectedSegment: .constant(0)), isActive: $navigateToOrders) {
+                EmptyView()
+            }
+        )
         Button("Proceed to Checkout") {
             showAddressList = true
         }
@@ -124,6 +131,7 @@ struct PrimaryButtonStyle: ButtonStyle {
 struct OrderSuccessView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedTab: Int
+    var onTrackOrder: () -> Void
     
     var body: some View {
         VStack(spacing: 24) {
@@ -142,7 +150,7 @@ struct OrderSuccessView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: {
-                selectedTab = 4  // Switch to Profile tab
+                onTrackOrder()
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Track Order")

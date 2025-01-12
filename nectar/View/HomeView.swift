@@ -160,6 +160,19 @@ struct FeaturedProductCard: View {
                 Text("$\(product.price, specifier: "%.2f")")
                     .font(.custom("Gilroy-SemiBold", size: 16))
                     .foregroundColor(.green)
+                
+                Button(action: {
+                    // Add to cart action
+                }) {
+                    Image(systemName: "cart.badge.plus")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(.green)
+                        .frame(width: 24, height: 24)
+                        .background(Color.white.opacity(0.8))
+                        .clipShape(Circle())
+                        .padding(.top, 8)
+                }
             }
             .padding()
         }
@@ -225,8 +238,10 @@ struct ProductCard: View {
                     .cornerRadius(10)
                 
                 Button(action: onFavoriteToggle) {
-                    Image(isFavorite ? "favorite" : "fav")
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
                         .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(isFavorite ? .red : .gray)
                         .frame(width: 24, height: 24)
                         .padding(8)
                 }
@@ -235,9 +250,11 @@ struct ProductCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.name)
                     .font(.custom("Gilroy-SemiBold", size: 16))
+                    .foregroundColor(.primary)
+                
                 Text(product.unit)
                     .font(.custom("Gilroy-Medium", size: 12))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
                 
                 HStack {
                     Text("$\(product.price, specifier: "%.2f")")
@@ -247,8 +264,10 @@ struct ProductCard: View {
                     Spacer()
                     
                     Button(action: onAddToCart) {
-                        Image("add_to_cart")
+                        Image(systemName: "cart.badge.plus")
                             .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(.green)
                             .frame(width: 24, height: 24)
                     }
                 }

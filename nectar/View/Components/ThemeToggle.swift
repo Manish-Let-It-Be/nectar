@@ -1,16 +1,15 @@
 import SwiftUI
+import Combine
 
 struct ThemeToggle: View {
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     var body: some View {
-        Button(action: {
-            isDarkMode.toggle()
-        }) {
+        Toggle(isOn: $isDarkMode) {
             Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
-                .foregroundColor(.green)
+                .foregroundColor(isDarkMode ? .yellow : .orange)
         }
-        .accessibilityLabel("Toggle Dark Mode")
+        .toggleStyle(SwitchToggleStyle(tint: .green))
     }
 }
 

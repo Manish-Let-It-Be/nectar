@@ -45,9 +45,10 @@ struct AccountView: View {
                         VStack(spacing: 4) {
                             Text(viewModel.name.isEmpty ? "Guest User" : viewModel.name)
                                 .font(.custom("Gilroy-Bold", size: 20))
+                                .foregroundColor(.primary)
                             Text(viewModel.email.isEmpty ? "" : viewModel.email)
                                 .font(.custom("Gilroy-Medium", size: 14))
-                                .foregroundColor(.gray)
+                                .foregroundColor(.secondary)
                         }
                     }
                     .padding()
@@ -58,7 +59,7 @@ struct AccountView: View {
                         MenuSection(title: "Shopping") {
                             NavigationLink(destination: OrdersView(selectedSegment: $selectedSegment)) {
                                 MenuRow(image: "a_order", title: "Orders")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                             
                             NavigationLink(destination: PersonalDetailsView(accountViewModel: Binding(get: {
@@ -68,22 +69,22 @@ struct AccountView: View {
                                 viewModel.email = newValue.email
                             }))) {
                                 MenuRow(image: "a_my_detail", title: "My Details")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                             
                             NavigationLink(destination: DeliveryAddressView()) {
                                 MenuRow(image: "a_delivery_address", title: "Delivery Address")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                             
                             NavigationLink(destination: PaymentMethodsView()) {
                                 MenuRow(image: "paymenth_methods", title: "Payment Methods")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                             
                             NavigationLink(destination: PromoCodesView()) {
                                 MenuRow(image: "a_promocode", title: "Promo Codes")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                         }
                         
@@ -91,7 +92,7 @@ struct AccountView: View {
                         MenuSection(title: "Notifications") {
                             NavigationLink(destination: NotificationsView()) {
                                 MenuRow(image: "a_noitification", title: "Notifications")
-                                    .foregroundStyle(Color(.black))
+                                    .foregroundStyle(.primary)
                             }
                         }
                         
@@ -99,12 +100,12 @@ struct AccountView: View {
                         MenuSection(title: "Help") {
                             NavigationLink(destination: HelpView()) {
                                 MenuRow(image: "a_help", title: "Get Help")
-                                    .foregroundStyle(Color(.blue))
+                                    .foregroundStyle(.blue)
                             }
                             
                             NavigationLink(destination: AboutView()) {
                                 MenuRow(image: "a_about", title: "About Us")
-                                    .foregroundStyle(Color(.blue))
+                                    .foregroundStyle(.blue)
                             }
                         }
                     }
@@ -119,11 +120,12 @@ struct AccountView: View {
                             
                             Text("Log Out")
                                 .font(.custom("Gilroy-SemiBold", size: 16))
+                                .foregroundColor(.primary)
                         }
                         .foregroundColor(.red)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color(.black))
+                        .background(Color.primary.opacity(0.1))
                         .cornerRadius(10)
                     }
                     .padding()
@@ -144,24 +146,6 @@ struct AccountView: View {
                     secondaryButton: .cancel()
                 )
             }
-            .onAppear {
-                // Customize navigation bar appearance
-                let appearance = UINavigationBarAppearance()
-                appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = .white // Set the background color
-                appearance.titleTextAttributes = [.foregroundColor: UIColor.black] // Set title color
-                appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Set large title color
-                
-                // Set the back button color
-                appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.red] // Change this to your desired color
-                
-                UINavigationBar.appearance().standardAppearance = appearance
-                UINavigationBar.appearance().scrollEdgeAppearance = appearance
-                
-                // Provide the shared DeliveryAddressViewModel
-                DeliveryAddressViewModel.shared
-            }
-
         }
     }
 }
@@ -196,9 +180,10 @@ struct MenuRow: View {
             Image(image)
                 .resizable()
                 .frame(width: 20, height: 20)
-            
+                .foregroundColor(.primary)
             Text(title)
                 .font(.custom("Gilroy-Medium", size: 16))
+                .foregroundColor(.primary)
             
             Spacer()
             
@@ -265,6 +250,7 @@ class AccountViewModel: ObservableObject {
         .environmentObject(AuthViewModel())
         .environmentObject(CartManager())
         .environmentObject(CheckoutViewModel())
+        .environmentObject(DeliveryAddressViewModel())
         .environmentObject(FavoritesManager())
         .environmentObject(HomeViewModel(productService: ProductService()))
         .environmentObject(ProductDetailViewModel(product: ProductModel(

@@ -29,25 +29,13 @@ struct ContentView: View {
             .navigationTitle("Nectar")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isDarkMode.toggle()
-                    }) {
-                        Image(systemName: isDarkMode ? "moon.fill" : "sun.max.fill")
-                            .foregroundColor(.green)
-                    }
-                    .accessibilityLabel("Toggle Dark Mode")
+                    ThemeToggle()
                 }
             }
         }
         .onAppear {
             // Check for existing login session
             authViewModel.checkAuth()
-            let appearance = UINavigationBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.green]
-            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.green]
-            UINavigationBar.appearance().standardAppearance = appearance
-            UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
     }
 }
