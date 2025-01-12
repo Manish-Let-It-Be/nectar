@@ -33,4 +33,3 @@ My development process was driven by a hands-on, experiential approach. By embra
 
 ## Contributing
 If you'd like to contribute to Nectar, feel free to fork the repository and submit a pull request. Any contributions are welcome!
-
