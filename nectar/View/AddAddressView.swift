@@ -217,4 +217,9 @@ extension String {
         let zipTest = NSPredicate(format: "SELF MATCHES %@", zipRegex)
         return zipTest.evaluate(with: self)
     }
+}
+
+#Preview {
+    AddAddressView(viewModel: DeliveryAddressViewModel())
+        .environmentObject(AuthViewModel())
 } 

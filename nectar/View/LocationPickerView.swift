@@ -265,4 +265,12 @@ extension CLPlacemark {
         ].compactMap { $0 }
         return components.joined(separator: ", ")
     }
+}
+
+#Preview {
+    LocationPickerView(selectedLocation: .constant(CLLocationCoordinate2D(
+        latitude: 37.3361,
+        longitude: -122.0380
+    )))
+    .environmentObject(AuthViewModel())
 } 

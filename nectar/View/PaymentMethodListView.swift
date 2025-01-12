@@ -32,4 +32,13 @@ struct PaymentMethodListView: View {
             )
         ]
     }
+}
+
+#Preview {
+    PaymentMethodListView(selectedPaymentMethod: .constant(OrderPaymentMethod(
+        id: "1",
+        type: .creditCard,
+        lastFourDigits: "4242"
+    )))
+    .environmentObject(AuthViewModel())
 } 

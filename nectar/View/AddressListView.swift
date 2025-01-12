@@ -38,4 +38,19 @@ struct AddressListView: View {
             )
         ]
     }
+}
+
+#Preview {
+    AddressListView(selectedAddress: .constant(OrderDeliveryAddress(
+        id: "1",
+        name: "John Doe",
+        street: "123 Main St",
+        city: "San Francisco",
+        state: "CA",
+        zipCode: "94105",
+        country: "USA",
+        phoneNumber: "1234567890",
+        formattedAddress: "123 Main St, San Francisco, CA 94105"
+    )))
+    .environmentObject(AuthViewModel())
 } 

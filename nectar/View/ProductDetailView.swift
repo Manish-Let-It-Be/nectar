@@ -193,3 +193,19 @@ struct NutritionFact: Identifiable {
 //         isFavorite.toggle()
 //     }
 // } 
+
+#Preview {
+    ProductDetailView(product: ProductModel(
+        id: "1",
+        name: "Sample Product",
+        description: "Sample description",
+        price: 9.99,
+        image: "apple",
+        unit: "1kg",
+        category: .fruits,
+        isFavorite: false
+    ))
+    .environmentObject(AuthViewModel())
+    .environmentObject(CartManager())
+    .environmentObject(FavoritesManager())
+} 

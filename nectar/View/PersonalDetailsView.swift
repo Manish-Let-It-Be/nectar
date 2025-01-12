@@ -247,4 +247,9 @@ extension String {
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
     }
+}
+
+#Preview {
+    PersonalDetailsView()
+        .environmentObject(AuthViewModel())
 } 

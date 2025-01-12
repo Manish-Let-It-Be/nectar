@@ -179,4 +179,11 @@ struct EmptyCartView: View {
                 .foregroundColor(.gray)
         }
     }
+}
+
+#Preview {
+    CartView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(CheckoutViewModel())
 } 

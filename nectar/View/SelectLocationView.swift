@@ -68,3 +68,8 @@ struct SelectLocationView: View {
         }
     }
 }
+
+#Preview {
+    SelectLocationView()
+        .environmentObject(AuthViewModel())
+}

@@ -106,4 +106,9 @@ struct EmptyOrderHistoryView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    OrdersHistoryView()
+        .environmentObject(AuthViewModel())
 } 

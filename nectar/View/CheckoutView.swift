@@ -67,4 +67,10 @@ struct PrimaryButtonStyle: ButtonStyle {
             .cornerRadius(10)
             .opacity(configuration.isPressed ? 0.8 : 1)
     }
+}
+
+#Preview {
+    CheckoutView(cartManager: CartManager())
+        .environmentObject(AuthViewModel())
+        .environmentObject(CheckoutViewModel())
 } 

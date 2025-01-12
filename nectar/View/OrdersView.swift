@@ -94,3 +94,9 @@ struct EmptyOrdersView: View {
         .padding()
     }
 } 
+
+#Preview {
+    OrdersView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+}

@@ -267,4 +267,12 @@ struct ProductCard: View {
                 .stroke(Color.gray.opacity(0.1), lineWidth: 1)
         )
     }
+}
+
+#Preview {
+    HomeView(locationService: LocationService(), productService: ProductService())
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(FavoritesManager())
+        .environmentObject(HomeViewModel(productService: ProductService()))
 } 

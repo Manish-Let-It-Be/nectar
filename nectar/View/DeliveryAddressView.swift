@@ -219,4 +219,9 @@ class DeliveryAddressViewModel: ObservableObject {
             return mutableAddr
         }
     }
+}
+
+#Preview {
+    DeliveryAddressView()
+        .environmentObject(AuthViewModel())
 } 

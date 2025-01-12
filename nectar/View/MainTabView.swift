@@ -78,3 +78,21 @@ struct MainTabView: View {
     }
 }
 
+#Preview {
+    MainTabView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(CheckoutViewModel())
+        .environmentObject(FavoritesManager())
+        .environmentObject(HomeViewModel(productService: ProductService()))
+        .environmentObject(ProductDetailViewModel(product: ProductModel(
+            id: "",
+            name: "",
+            description: "",
+            price: 0.0,
+            image: "",
+            unit: "",
+            category: .fruits,
+            isFavorite: false
+        )))
+}

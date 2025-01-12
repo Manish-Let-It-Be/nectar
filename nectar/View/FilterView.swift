@@ -187,3 +187,8 @@ struct RangeSlider: View {
         value = value.lowerBound...Swift.min(bounds.upperBound, Swift.max(value.lowerBound + 1, newValue))
     }
 } 
+
+#Preview {
+    FilterView(productService: ProductService())
+        .environmentObject(AuthViewModel())
+} 

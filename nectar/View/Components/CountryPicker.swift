@@ -51,4 +51,12 @@ struct Country: Identifiable, Equatable {
         }
         return flag
     }
+}
+
+#Preview {
+    CountryPicker(selectedCountry: .constant(Country(
+        name: "United States",
+        code: "US",
+        phoneCode: "+1"
+    )))
 } 

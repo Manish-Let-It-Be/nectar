@@ -26,4 +26,20 @@ struct CheckoutOrderItemRow: View {
         }
         .padding(.vertical, 8)
     }
+}
+
+#Preview {
+    CheckoutOrderItemRow(item: CartItem(
+        product: ProductModel(
+            id: "1",
+            name: "Sample Product",
+            description: "Sample description",
+            price: 9.99,
+            image: "apple",
+            unit: "1kg",
+            category: .fruits,
+            isFavorite: false
+        ),
+        quantity: 2
+    ))
 } 

@@ -156,4 +156,11 @@ struct EmptySearchView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
     }
+}
+
+#Preview {
+    ExploreView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(FavoritesManager())
 } 

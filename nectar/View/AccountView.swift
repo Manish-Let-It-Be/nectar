@@ -221,4 +221,23 @@ class AccountViewModel: ObservableObject {
     @Published var profileImage: UIImage?
     
     // Add more profile-related functionality here
+}
+
+#Preview {
+    AccountView(productService: ProductService())
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(CheckoutViewModel())
+        .environmentObject(FavoritesManager())
+        .environmentObject(HomeViewModel(productService: ProductService()))
+        .environmentObject(ProductDetailViewModel(product: ProductModel(
+            id: "",
+            name: "",
+            description: "",
+            price: 0.0,
+            image: "",
+            unit: "",
+            category: .fruits,
+            isFavorite: false
+        )))
 } 

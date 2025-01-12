@@ -248,4 +248,9 @@ class CardViewModel: ObservableObject {
         
         return isValid
     }
+}
+
+#Preview {
+    AddPaymentMethodView(viewModel: PaymentMethodsViewModel())
+        .environmentObject(AuthViewModel())
 } 

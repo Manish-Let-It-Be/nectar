@@ -136,4 +136,9 @@ class PaymentMethodsViewModel: ObservableObject {
     func deletePaymentMethod(_ method: PaymentMethod) {
         paymentMethods.removeAll { $0.id == method.id }
     }
+}
+
+#Preview {
+    PaymentMethodsView()
+        .environmentObject(AuthViewModel())
 } 

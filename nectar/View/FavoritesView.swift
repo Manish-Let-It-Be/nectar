@@ -120,4 +120,11 @@ struct FavoriteProductCard: View {
         .cornerRadius(15)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
     }
+}
+
+#Preview {
+    FavoritesView()
+        .environmentObject(AuthViewModel())
+        .environmentObject(CartManager())
+        .environmentObject(FavoritesManager())
 } 

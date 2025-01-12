@@ -210,3 +210,33 @@ struct PaymentDetailsSection: View {
         }
     }
 } 
+
+#Preview {
+    OrderDetailView(order: Order(
+        id: "1",
+        userId: "user1",
+        items: [],
+        totalAmount: 99.99,
+        deliveryAddress: OrderDeliveryAddress(
+            id: "addr1",
+            name: "John Doe",
+            street: "123 Main St",
+            city: "San Francisco",
+            state: "CA",
+            zipCode: "94105",
+            country: "USA",
+            phoneNumber: "1234567890",
+            formattedAddress: "123 Main St, San Francisco, CA 94105"
+        ),
+        paymentMethod: OrderPaymentMethod(
+            id: "pm1",
+            type: .creditCard,
+            lastFourDigits: "4242"
+        ),
+        status: .pending,
+        deliveryTime: Date(),
+        createdAt: Date(),
+        promoDiscount: nil
+    ))
+    .environmentObject(AuthViewModel())
+} 
