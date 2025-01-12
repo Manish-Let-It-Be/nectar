@@ -32,8 +32,11 @@ Click on any of the images to see the video...
     <img src="Visuals/nectar3.png" alt="UI2" height="450">
     <img src="Visuals/nectar4.png" alt="UI2" height="450">
     <img src="Visuals/nectar5.png" alt="UI2" height="450">
+    <img src="Visuals/nectar9.png" alt="UI2" height="450">
     <img src="Visuals/nectar6.png" alt="UI2" height="450">
     <img src="Visuals/nectar7.png" alt="UI2" height="450">
+    <img src="Visuals/nectar8.png" alt="UI2" height="450">
+    
 </a>
 
 
