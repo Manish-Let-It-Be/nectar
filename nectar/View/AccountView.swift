@@ -10,6 +10,7 @@ struct AccountView: View {
     @State private var showImagePicker = false
     @State private var showLogoutAlert = false
     @State private var selectedSegment = 0
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
 
     var body: some View {
         NavigationView {

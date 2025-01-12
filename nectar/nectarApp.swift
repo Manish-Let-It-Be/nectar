@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 @main
 struct nectarApp: App {
@@ -13,6 +14,7 @@ struct nectarApp: App {
     @StateObject private var cartManager = CartManager()
     @StateObject private var favoritesManager = FavoritesManager()
     @StateObject private var orderService = OrderService()
+    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     
     
     var body: some Scene {
@@ -22,6 +24,7 @@ struct nectarApp: App {
                 .environmentObject(cartManager)
                 .environmentObject(favoritesManager)
                 .environmentObject(orderService)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
